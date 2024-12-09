@@ -1,13 +1,17 @@
 package io.github.jamsesso.jsonlogic.ast;
 
-import com.google.gson.*;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public final class JsonLogicParser {
-  private static final JsonParser PARSER = new JsonParser();
 
   private JsonLogicParser() {
     // Utility class has no public constructor.
@@ -15,7 +19,7 @@ public final class JsonLogicParser {
 
   public static JsonLogicNode parse(String json) throws JsonLogicParseException {
     try {
-      return parse(PARSER.parse(json));
+      return parse(JsonParser.parseString(json));
     }
     catch (JsonSyntaxException e) {
       throw new JsonLogicParseException(e);
